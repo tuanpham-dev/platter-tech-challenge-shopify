@@ -1,0 +1,47 @@
+{%- if item != blank -%}
+  {%- liquid
+    assign badges = item.metafields.custom.badges.value
+
+    # Demo purposes only - ratings should be pulled from product metafields reviews.rating and reviews.rating_count
+    assign rating = item.metafields.custom.rating.value.rating | plus: 0
+    assign scale_max = item.metafields.custom.rating.scale_max | default: 5
+    assign rating_count = item.metafields.custom.rating_count | plus: 0
+  -%}
+  <div class="product-card pb-2 {{ class }}">
+    <a class="product-card__link" href="{{ item.url }}">
+      <div class="product-card__image-wrapper relative rounded-(--rounded-10px) overflow-hidden">
+        <img class="product-card__image" src="{{ item | image_url: width: 700, height: 700 }}" alt="{{ item.title }}" loading="lazy">
+
+        {%- if badges.count > 0 -%}
+        <div class="product-card__badge-wrapper absolute top-2 px-2 w-full flex justify-between">
+          {%- for badge in badges -%}
+            <span
+              class="product-card__badge text-badge-mobile lg:text-badge-desktop font-heading uppercase tracking-6p text-(--badge-text-color) px-2 py-1 rounded-full border border-black bg-(--badge-color)"
+              style="--badge-color: {{ badge.background_color }}; --badge-text-color: {{ badge.text_color }};"
+            >
+              {{ badge.title }}
+            </span>
+          {%- endfor -%}
+        </div>
+        {%- endif -%}
+      </div>
+      <div class="product-card__info mt-3 lg:mt-4 flex flex-col gap-2">
+        <h3 class="product-card__name font-heading text-md lg:text-lg tracking-3p leading-none text-zinc-900">
+          {{ item.title }}
+        </h3>
+
+        {%- if rating > 0 and rating_count > 0 -%}
+          {%- assign rating_percentage = rating | divided_by: scale_max | times: 100 | round: 2 -%}
+          <div class="product-card__rating flex items-baseline gap-1 py-1">
+            <span class="product-card__stars text-stone-800" style="--rating-percentage: {{- rating_percentage -}}%;"></span>
+            <span class="product-card__reviews text-reviews-count-mobile lg:text-xs leading-none text-neutral-500">
+              {{ 'products.reviews.number_of_reviews' | t: count: rating_count }}
+            </span>
+          </div>
+        {%- endif -%}
+
+        <p class="product-card__price text-md font-medium text-zinc-900">{{ item.price | money }}</p>
+      </div>
+    </a>
+  </div>
+{%- endif -%}

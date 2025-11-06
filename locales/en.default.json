@@ -1,3 +1,11 @@
 {
-  "general": {}
+  "general": {},
+  "products": {
+    "reviews": {
+      "number_of_reviews": {
+        "one": "{{ count }} review",
+        "other": "{{ count }} reviews"
+      }
+    }
+  }
 }

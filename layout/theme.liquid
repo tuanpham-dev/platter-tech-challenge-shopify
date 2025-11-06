@@ -12,11 +12,21 @@
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
 
+    {{ 'style.css' | asset_url | stylesheet_tag }}
+
+    <style>
+      :root {
+        --stars-svg: url({{ 'stars.svg' | asset_url | json }});
+      }
+    </style>
+
     {{ content_for_header }}
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
   </head>
 
-  <body>
-    <main role="main" tabindex="-1">
+  <body class="bg-gray-100 m-0 font-body text-base">
+    <main role="main py-10 lg:py-20" tabindex="-1">
       {{ content_for_layout }}
     </main>
   </body>

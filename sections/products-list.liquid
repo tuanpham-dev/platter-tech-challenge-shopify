@@ -1,0 +1,176 @@
+{%- liquid
+  assign products_source = sectioin.settings.products_source | default: 'collection'
+
+  if products_source == 'collection'
+    assign products = section.settings.collection.products
+  else
+    assign products = section.settings.products_list
+  endif
+-%}
+
+{%- if products.size > 0 -%}
+  <script src="{{ 'products-list.js' | asset_url }}" defer></script>
+
+  {%- liquid
+    assign heading = section.settings.heading
+    assign cta_text = section.settings.cta_text
+    assign cta_url = section.settings.cta_url
+    assign has_heading = true
+
+    if heading == blank
+      if cta_text == blank or cta_url == blank
+        assign has_heading = false
+      endif
+    endif
+
+    assign products_limit = section.settings.products_limit | default: 12
+    assign products_count = products.size | at_most: products_limit
+  -%}
+  <products-list
+    class="products-list bg-white block py-9 lg:py-20 overflow-hidden"
+    {% if products_count > 4 %}
+      data-has-show-more
+      data-is-collapsed="true"
+    {% endif %}
+  >
+    <div class="section-container products-list__container">
+      {%- if has_heading -%}
+        <div class="products-list__heading-wrapper flex justify-between items-center">
+          {%- if heading != blank -%}
+            <h2 class="products-list__heading font-display font-black text-heading-mobile lg:text-heading-desktop leading-heading text-stone-800">
+              {{- heading -}}
+            </h2>
+          {%- endif -%}
+
+          {%- if cta_text != blank and cta_url != blank -%}
+            <a
+              class="products-list__heading-cta font-semibold text-sm text-stone-600 hidden lg:flex items-center gap-2"
+              href="{{ cta_url }}"
+            >
+              {{- cta_text -}}
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.333 10h13.334m0 0-5-5m5 5-5 5"/>
+              </svg>
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      <div class="swiper products-list__carousel mt-6 lg:mt-9">
+        <div class="swiper-wrapper products-list__carousel-wrapper">
+          {%- for item in products limit: products_limit -%}
+            {%- render 'product-card',
+              item: item,
+              class: 'swiper-slide products-list__carousel-slide'
+            -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="products-list__footer mt-3 lg:mt-12 flex justify-center">
+        {%- if products.size > 4 -%}
+          <button
+            class="products-list__show-more-button lg:hidden bg-zinc-900 text-white w-full max-w-sm font-body font-semibold leading-[1.4] py-4 px-8 rounded-full"
+            data-show-more-text="{{ section.settings.show_more_text | default: 'Show More' }}"
+            data-show-less-text="{{ section.settings.show_less_text | default: 'Show Less' }}"
+          >
+            {{ section.settings.show_more_text | default: 'Show More' }}
+          </button>
+        {%- endif -%}
+
+        <div class="swiper-scrollbar hidden lg:block"></div>
+      </div>
+    </div>
+  </products-list>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Products List",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Heading"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Best Sellers"
+      },
+      {
+        "type": "text",
+        "id": "cta_text",
+        "label": "CTA Text",
+        "default": "Shop All Best Sellers",
+        "info": "CTA Text appears on the right side of the heading on desktop only."
+      },
+      {
+        "type": "url",
+        "id": "cta_url",
+        "label": "CTA URL",
+        "visible_if": "{{ section.settings.cta_text != blank }}"
+      },
+      {
+        "type": "header",
+        "content": "Data"
+      },
+      {
+        "type": "select",
+        "id": "products_source",
+        "label": "Products Source",
+        "options": [
+          {
+            "value": "collection",
+            "label": "From Collection"
+          },
+          {
+            "value": "list",
+            "label": "From List"
+          }
+        ],
+        "default": "collection"
+      },
+      {
+        "type": "collection",
+        "id": "collection",
+        "label": "Collection",
+      },
+      {
+        "type": "product_list",
+        "id": "products_list",
+        "label": "Products List"
+      },
+      {
+        "type": "range",
+        "id": "products_limit",
+        "min": 1,
+        "max": 20,
+        "step": 1,
+        "label": "Products Limit",
+        "default": 12
+      },
+      {
+        "type": "header",
+        "content": "Show More Button"
+      },
+      {
+        "type": "text",
+        "id": "show_more_text",
+        "label": "Show More Button Text",
+        "default": "Show More"
+      },
+      {
+        "type": "text",
+        "id": "show_less_text",
+        "label": "Show Less Button Text",
+        "default": "Show Less"
+      },
+    ],
+    "presets": [
+      {
+        "name": "Products List",
+        "category": "Products"
+      }
+    ]
+  }
+{% endschema %}

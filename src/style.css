@@ -55,7 +55,7 @@
     display: inline-block;
     width: 51px;
     height: 9px;
-    mask: url('./stars.svg');
+    mask: var(--stars-svg);
     mask-size: cover;
     background: var(--color-stone-300);
 
@@ -133,5 +133,19 @@ a {
 .products-list[data-has-show-more][data-is-collapsed] .product-card:nth-child(n + 5) {
   @media (max-width: 1023px) {
     display: none;
+  }
+}
+
+.products-list__footer {
+  @media (max-width: 1023px) {
+    .products-list:not([data-has-show-more]) & {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    [data-is-scrollbar-hidden] & {
+      display: none;
+    }
   }
 }
