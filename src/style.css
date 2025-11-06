@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&family=Poppins:wght@300;400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+
+@import 'swiper/css';
+@import 'swiper/css/scrollbar';
+@import "tailwindcss";
+
+@theme {
+  --font-display: 'Source Serif 4', serif;
+  --font-heading: 'Bebas Neue', sans-serif;
+  --font-body: Poppins, sans-serif;
+
+  --text-base: 1rem;
+  --text-heading-mobile: 1.75rem;
+  --text-heading-desktop: 2.5rem;
+  --text-reviews-count-mobile: 0.6875rem;
+  --text-badge-mobile: 0.5rem;
+  --text-badge-desktop: 0.625rem;
+  --leading-heading: 1.2;
+
+  --color-white: #fffffa;
+  --color-stone-300: #cfcfcf;
+  --color-stone-600: #5c553a;
+  --color-stone-800: #231f20;
+  --color-zinc-300: #ddd6d7;
+  --color-zinc-900: #1c1d1d;
+  --color-neutral-500: #707070;
+
+  --rounded-10px: 10px;
+  --tracking-3p: 0.03em;
+  --tracking-6p: 0.06em;
+}
+
+@utility section-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: calc(100% - 48px);
+
+  @media (min-width: 1024px) {
+    max-width: calc(100% - 60px);
+  }
+
+  @media (min-width: 1280px) {
+    max-width: calc(100% - 256px);
+  }
+
+  @media (min-width: 1920px) {
+    max-width: 1664px;
+  }
+}
+
+@layer components {
+  .product-card__stars {
+    position: relative;
+    display: inline-block;
+    width: 51px;
+    height: 9px;
+    mask: url('./stars.svg');
+    mask-size: cover;
+    background: var(--color-stone-300);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: var(--rating-percentage);
+      height: 100%;
+      background: currentColor;
+    }
+
+    @media (min-width: 1024px) {
+      width: 68px;
+      height: 12px;
+    }
+  }
+}
+
+a {
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.products-list {
+  .swiper-scrollbar.swiper-scrollbar-horizontal {
+    position: relative;
+    left: 0;
+    bottom: auto;
+    top: auto;
+    width: 100%;
+    height: 4px;
+    background-color: var(--color-zinc-300);
+  }
+
+  .swiper-scrollbar-drag {
+    background-color: var(--color-stone-800);
+    height: 4px;
+    transition: height 0.3s ease, margin-top 0.3s ease;
+  }
+
+  .swiper-scrollbar:hover,
+  .swiper-scrollbar[data-is-dragging] {
+    .swiper-scrollbar-drag {
+      margin-top: -1px;
+      height: 6px;
+    }
+  }
+}
+
+.products-list__carousel {
+  overflow: visible;
+
+  .product-card {
+    @media (min-width: 1024px) {
+      width: 23%;
+      max-width: 355px;
+    }
+  }
+}
+
+.products-list__carousel-wrapper {
+  @media (max-width: 1023px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 11px;
+    row-gap: 12px;
+  }
+}
+
+.products-list[data-has-show-more][data-is-collapsed] .product-card:nth-child(n + 5) {
+  @media (max-width: 1023px) {
+    display: none;
+  }
+}

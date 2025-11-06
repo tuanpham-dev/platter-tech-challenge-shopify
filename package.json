@@ -1,0 +1,24 @@
+{
+  "name": "platter-tech-challenge-shopify",
+  "version": "1.0.0",
+  "description": "Platter Tech Challenge using Shopify and Tailwind CSS",
+  "scripts": {
+    "dev": "concurrently \"pnpm run watch\" \"shopify theme dev --store flatter-tech-challenge-tuanp",
+    "watch": "tailwindcss -i ./src/style.css -o ./assets/style.css --watch",
+    "build": "tailwindcss -i ./src/style.css -o ./assets/style.css --minify"
+  },
+  "keywords": [
+    "html",
+    "tailwindcss"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.16",
+    "concurrently": "^9.2.1",
+    "tailwindcss": "^4.1.16"
+  },
+  "dependencies": {
+    "swiper": "^12.0.3"
+  }
+}
