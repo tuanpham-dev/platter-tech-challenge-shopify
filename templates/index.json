@@ -1,10 +1,68 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "sample-section": {
-      "type": "sample-section"
+    "products_list_dfiVn6": {
+      "type": "products-list",
+      "name": "Products List",
+      "settings": {
+        "heading": "Best Sellers",
+        "cta_text": "Shop All Best Sellers",
+        "cta_url": "shopify://collections/best-sellers",
+        "products_source": "collection",
+        "collection": "best-sellers",
+        "products_list": [],
+        "products_limit": 12,
+        "show_more_text": "Show More",
+        "show_less_text": "Show Less"
+      }
+    },
+    "products_list_BtJwWx": {
+      "type": "products-list",
+      "name": "Products List",
+      "settings": {
+        "heading": "Best Sellers",
+        "cta_text": "Shop All Best Sellers",
+        "cta_url": "",
+        "products_source": "list",
+        "collection": "",
+        "products_list": [
+          "removable-roof-plush-pet-house",
+          "porcelain-cat-chopstick-holders-set",
+          "pet-tree-scratching-post-with-toy",
+          "funny-electric-toy-zipstring-rope-launcher-propeller-for-kids"
+        ],
+        "products_limit": 12,
+        "show_more_text": "Show More",
+        "show_less_text": "Show Less"
+      }
+    },
+    "products_list_WKE3Lb": {
+      "type": "products-list",
+      "name": "Products List",
+      "settings": {
+        "heading": "",
+        "cta_text": "Shop All Best Sellers",
+        "cta_url": "shopify://collections/best-sellers",
+        "products_source": "collection",
+        "collection": "best-sellers",
+        "products_list": [],
+        "products_limit": 6,
+        "show_more_text": "Show More",
+        "show_less_text": "Show Less"
+      }
     }
   },
   "order": [
-    "sample-section"
+    "products_list_dfiVn6",
+    "products_list_BtJwWx",
+    "products_list_WKE3Lb"
   ]
 }
