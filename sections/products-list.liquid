@@ -1,5 +1,5 @@
 {%- liquid
-  assign products_source = sectioin.settings.products_source | default: 'collection'
+  assign products_source = section.settings.products_source | default: 'collection'
 
   if products_source == 'collection'
     assign products = section.settings.collection.products
@@ -8,7 +8,7 @@
   endif
 -%}
 
-{%- if products.size > 0 -%}
+{%- if products.count > 0 -%}
   <script src="{{ 'products-list.js' | asset_url }}" defer></script>
 
   {%- liquid
